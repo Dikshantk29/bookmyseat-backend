@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface TheaterRepo extends JpaRepository<Theater, Long> {
 
-   List<Theater> findCityById(Long cityId);
+   List<Theater> findByCityId(Long cityId);
 
 }

@@ -19,10 +19,7 @@ public class Movie {
 
     @Column(name = "title", nullable = false)
     private String title;
-
     private String description;
-
-
     private String genre;
     private String language;
     private Integer durationInMinutes;

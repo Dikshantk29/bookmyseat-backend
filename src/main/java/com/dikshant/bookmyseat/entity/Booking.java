@@ -31,7 +31,7 @@ public class Booking {
     @JoinTable(name = "booking_seats",
             joinColumns = @JoinColumn(name = "booking_id"),
             inverseJoinColumns = @JoinColumn(name = "seat_id"))
-    private List<Seat> seat;
+    private List<Seat> seats;
 
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
