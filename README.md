@@ -5,6 +5,7 @@ BookMySeat is a comprehensive, full-stack movie ticket booking application. It a
 <video width="100%" autoplay loop muted controls>
   <source src="src\main\resources\static\assets\video.mp4" type="video/mp4">
 </video>
+
 ### ✨ Features
 
 ### 👤 User Features
