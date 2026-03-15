@@ -4,7 +4,8 @@ BookMySeat is a comprehensive, full-stack movie ticket booking application. It a
 
 ### 🎥 Application Demo
 
-[![BookMySeat Demo](./src/main/resources/static/assets/image.png)]([https://drive.google.com/file/d/13TVj-JbD25nQ0omzoGFYzZ45wj6wLB-x/view?usp=sharing])
+[![BookMySeat Demo](./src/main/resources/static/assets/image.png)](https://drive.google.com/file/d/13TVj-JbD25nQ0omzoGFYzZ45wj6wLB-x/view?usp=sharing)
+
 > 👆 Click the image to watch the full demo
 
 ### ✨ Features
