@@ -112,6 +112,6 @@ const BookingAPI = {
     create: (data) => apiPost('/bookings', data),
     getById: (id) => apiGet(`/bookings/${id}`),
     getByUser: (userId) => apiGet(`/bookings/user/${userId}`),
-    cancel: (id) => apiPut(`/bookings/${id}/cancel`),
+    cancel: (id) => apiDelete(`/bookings/${id}`),
     getAvailableSeats: (showId) => apiGet(`/bookings/show/${showId}/available-seats`)
 };

@@ -22,7 +22,9 @@
 <div class="container">
     <!-- Movie Info -->
     <div id="movie-detail" style="display:flex; gap:2rem; margin-bottom:2rem; flex-wrap:wrap;">
-        <div class="loading-center"><div class="spinner"></div></div>
+        <div class="loading-center">
+            <div class="spinner"></div>
+        </div>
     </div>
 
     <!-- Shows -->
@@ -36,18 +38,32 @@
         <button class="modal-close" onclick="closeModal('seat-modal')">&times;</button>
         <h2 id="seat-modal-title">Select Seats</h2>
         <div class="screen-label" style="text-align:center;">SCREEN</div>
-        <div style="display:flex; justify-content:center;"><div class="screen-indicator"></div></div>
+        <div style="display:flex; justify-content:center;">
+            <div class="screen-indicator"></div>
+        </div>
         <div class="seat-map" id="seat-map"></div>
         <div class="seat-legend">
-            <div class="seat-legend-item"><div class="seat-legend-box" style="background:var(--bg-light);border:2px solid rgba(255,255,255,0.15);"></div> Available</div>
-            <div class="seat-legend-item"><div class="seat-legend-box" style="background:var(--primary);"></div> Selected</div>
-            <div class="seat-legend-item"><div class="seat-legend-box" style="background:rgba(255,255,255,0.05);"></div> Booked</div>
+            <div class="seat-legend-item">
+                <div class="seat-legend-box"
+                     style="background:var(--bg-light);border:2px solid rgba(255,255,255,0.15);"></div>
+                Available
+            </div>
+            <div class="seat-legend-item">
+                <div class="seat-legend-box" style="background:var(--primary);"></div>
+                Selected
+            </div>
+            <div class="seat-legend-item">
+                <div class="seat-legend-box" style="background:rgba(255,255,255,0.05);"></div>
+                Booked
+            </div>
         </div>
         <div class="booking-summary" id="booking-summary" style="margin-top:1.5rem; display:none;">
             <h3>Booking Summary</h3>
             <div id="summary-content"></div>
         </div>
-        <button class="btn btn-primary btn-block" style="margin-top:1rem;" id="confirm-btn" onclick="confirmBooking()" disabled>Confirm Booking</button>
+        <button class="btn btn-primary btn-block" style="margin-top:1rem;" id="confirm-btn" onclick="confirmBooking()"
+                disabled>Confirm Booking
+        </button>
     </div>
 </div>
 
@@ -67,9 +83,17 @@
             const movie = await MovieAPI.getById(movieId);
             document.title = `${movie.title} - BookMyShow`;
             document.getElementById('movie-detail').innerHTML = `
-                <div style="width:220px; height:320px; border-radius:var(--radius); overflow:hidden; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:6rem; background:linear-gradient(135deg, #1a1a2e, #16213e);">
-                    🎬
-                </div>
+<!--                <div style="width:220px; height:320px; border-radius:var(&#45;&#45;radius); overflow:hidden; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:6rem; background:linear-gradient(135deg, #1a1a2e, #16213e);">-->
+<!--                    🎬-->
+<!--                </div>-->
+        <div style="width:220px; height:320px; border-radius:var(--radius); overflow:hidden; flex-shrink:0; background:linear-gradient(135deg, #1a1a2e, #16213e);">
+        <img
+            src="${movie.posterUrl || '../assets/default-movie.png'}"
+            alt="${movie.title}"
+            style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius);"
+            onerror="this.src='https://placehold.co/220x320?text=${encodeURIComponent(movie.title)}'"
+        />
+         </div>
                 <div style="flex:1; min-width:250px;">
                     <h1 style="font-size:2rem; margin-bottom:0.5rem;">${movie.title}</h1>
                     <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem;">
