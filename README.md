@@ -2,7 +2,7 @@
 
 BookMySeat is a comprehensive, full-stack movie ticket booking application. It allows users to browse movies, find theaters in their city, view available shows, select seats via an interactive visual seat map, and manage their bookings. It also includes an Admin dashboard for managing the entire catalog of cities, theaters, movies, screens, shows, and seats.
 
-## ✨ Features
+### ✨ Features
 
 ### 👤 User Features
 
