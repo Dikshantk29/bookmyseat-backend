@@ -10,9 +10,12 @@ import java.util.List;
 public interface MovieRepo extends JpaRepository<Movie, Long> {
 
 
-   List<Movie> findByGenre(String genre);
-   List<Movie> findByLanguage(String language);
-   List<Movie> findByTitleContaingIgnoreCase(String title);
+    List<Movie> findByGenre(String genre);
+
+    List<Movie> findByLanguage(String language);
+
+    //   List<Movie> findByTitleContaingIgnoreCase(String title);
+    List<Movie> findByTitleContainingIgnoreCase(String title);
 
 
 }

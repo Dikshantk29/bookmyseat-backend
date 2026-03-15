@@ -13,6 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ScreenRequest {
     private String name;
-    private Integer totalSeats;
     private Long theaterId;
+    private Integer totalSeats;
 }

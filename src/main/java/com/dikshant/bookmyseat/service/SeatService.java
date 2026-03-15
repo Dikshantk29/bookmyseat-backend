@@ -1,5 +1,6 @@
 package com.dikshant.bookmyseat.service;
 
+import com.dikshant.bookmyseat.dto.SeatRequest;
 import com.dikshant.bookmyseat.entity.Seat;
 import com.dikshant.bookmyseat.entity.Screen;
 import com.dikshant.bookmyseat.repository.SeatRepo;
@@ -16,11 +17,17 @@ public class SeatService {
     private final ScreenService screenService;
 
     // Add Seat
-    public Seat addSeat(Long screenId, Seat seat) {
+    public Seat addSeat(Long screenId, SeatRequest seatRequest) {
 
         Screen screen = screenService.getScreenById(screenId);
 
-        seat.setScreen(screen);
+        Seat seat = Seat.builder()
+                .seatNumber(seatRequest.getSeatNumber())
+                .row(seatRequest.getRow())
+                .col(seatRequest.getCol())
+                .seatType(seatRequest.getSeatType())
+                .screen(screen)
+                .build();
 
         return seatRepository.save(seat);
     }
@@ -30,10 +37,9 @@ public class SeatService {
         return seatRepository.findAll();
     }
 
-    //Get seat by screen id
+    // Get seats by screen id
     public List<Seat> getSeatsByScreenId(Long screenId) {
         return seatRepository.findByScreenId(screenId);
-
     }
 
     // Get Seat By Id

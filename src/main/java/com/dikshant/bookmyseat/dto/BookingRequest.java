@@ -1,5 +1,6 @@
 package com.dikshant.bookmyseat.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,6 @@ public class BookingRequest {
 
     private Long userId;
     private Long showId;
+    @JsonProperty("seatIds")
     private List<Long> seatIds;
 }

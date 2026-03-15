@@ -29,7 +29,7 @@ public class MovieService {
     }
 
     public List<Movie> getMoviesByTitle(String title) {
-        return movieRepository.findByTitleContaingIgnoreCase(title);
+        return movieRepository.findByTitleContainingIgnoreCase(title);
     }
 
     public  List<Movie> getMoviesByGenre(String genre) {

@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Booking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,26 +29,27 @@ public class Booking {
     private Show show;
 
     @ManyToMany
-    @JoinTable(name = "booking_seats",
+    @JoinTable(
+            name = "booking_seats",
             joinColumns = @JoinColumn(name = "booking_id"),
-            inverseJoinColumns = @JoinColumn(name = "seat_id"))
+            inverseJoinColumns = @JoinColumn(name = "seat_id")
+    )
     private List<Seat> seats;
 
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
 
+    @Column(name = "total_price")
     private Double totalPrice;
 
+    @Column(name = "booked_at")
     private LocalDateTime bookedAt;
 
-    @PrePersist //This will be called before the entity is persisted
+    @PrePersist
     private void onCreate() {
         this.bookedAt = LocalDateTime.now();
-
-        if(this.status == null) {
+        if (this.status == null) {
             this.status = BookingStatus.CONFIRMED;
         }
     }
-
-
 }

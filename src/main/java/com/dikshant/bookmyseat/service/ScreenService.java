@@ -1,5 +1,6 @@
 package com.dikshant.bookmyseat.service;
 
+import com.dikshant.bookmyseat.dto.ScreenRequest;
 import com.dikshant.bookmyseat.entity.Screen;
 import com.dikshant.bookmyseat.entity.Theater;
 import com.dikshant.bookmyseat.repository.ScreenRepo;
@@ -16,8 +17,10 @@ public class ScreenService {
     private final ScreenRepo screenRepository;
     private final TheaterService theaterService;
 
-    //Add Screen
-    public Screen addScreen(Screen screen) {
+    // Add Screen
+    public Screen addScreen(ScreenRequest screenRequest) {
+        Theater theater = theaterService.getTheaterById(screenRequest.getTheaterId());
+        Screen screen = Screen.builder().name(screenRequest.getName()).totalSeats(screenRequest.getTotalSeats()).theater(theater).build();
         return screenRepository.save(screen);
     }
 

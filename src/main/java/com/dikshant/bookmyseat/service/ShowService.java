@@ -5,7 +5,6 @@ import com.dikshant.bookmyseat.entity.Movie;
 import com.dikshant.bookmyseat.entity.Screen;
 import com.dikshant.bookmyseat.entity.Show;
 import com.dikshant.bookmyseat.repository.ShowRepo;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Builder
 public class ShowService {
 
     private final ShowRepo showRepository;
@@ -59,12 +57,12 @@ public class ShowService {
         return showRepository.findByScreenId(screenId);
     }
 
-    public List<Show> getShowByMovieAndDate(Movie movie, LocalDate date) {
-        return showRepository.findByMovieIdAndShowDate(movie.getId(), date);
+    public List<Show> getShowByMovieAndDate(Long id, LocalDate date) {
+        return showRepository.findByMovieIdAndShowDate(id, date);
     }
 
-    public List<Show> getShowByScreenAndDate(Screen screen, LocalDate date) {
-        return showRepository.findByScreenIdAndShowDate(screen.getId(), date);
+    public List<Show> getShowByScreenAndDate(Long id, LocalDate date) {
+        return showRepository.findByScreenIdAndShowDate(id, date);
     }
 
 
