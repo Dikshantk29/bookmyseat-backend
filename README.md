@@ -56,7 +56,7 @@ BookMySeat is a comprehensive, full-stack movie ticket booking application. It a
 
 1. **Clone the Repository**
 ```bash
-git clone https://github.com/Dikshantk29/bookmyseat.git
+git clone https://github.com/Dikshantk29/bookmyseat-backend.git
 cd bookmyseat
 
 ```
