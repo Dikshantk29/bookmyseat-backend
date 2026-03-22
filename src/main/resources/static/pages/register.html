@@ -50,16 +50,42 @@
 <script src="../js/api.js"></script>
 <script src="../js/utils.js"></script>
 <script>
+<!--    async function handleRegister(e) {-->
+<!--        e.preventDefault();-->
+<!--        const data = {-->
+<!--            name: document.getElementById('name').value,-->
+<!--            email: document.getElementById('email').value,-->
+<!--            phone: document.getElementById('phone').value,-->
+<!--            password: document.getElementById('password').value-->
+<!--        };-->
+<!--        try {-->
+<!--            const user = await UserAPI.register(data);-->
+<!--            setLoggedInUser(user);-->
+<!--            showToast('Account created successfully!', 'success');-->
+<!--            setTimeout(() => window.location.href = '../index.html', 1000);-->
+<!--        } catch (err) {-->
+<!--            showToast(err.message, 'error');-->
+<!--        }-->
+<!--    }-->
+
     async function handleRegister(e) {
         e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
         const data = {
             name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
+            email: email,
             phone: document.getElementById('phone').value,
-            password: document.getElementById('password').value
+            password: password
         };
         try {
             const user = await UserAPI.register(data);
+
+            // Create and store the Basic Auth token
+            const token = btoa(`${email}:${password}`);
+            localStorage.setItem('bms_token', token);
+
             setLoggedInUser(user);
             showToast('Account created successfully!', 'success');
             setTimeout(() => window.location.href = '../index.html', 1000);

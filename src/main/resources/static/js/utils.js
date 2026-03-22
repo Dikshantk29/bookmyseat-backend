@@ -24,13 +24,24 @@ function getLoggedInUser() {
     return u ? JSON.parse(u) : null;
 }
 
+//function logout() {
+//    localStorage.removeItem('bms_user');
+//    updateNavUser();
+//    showToast('Logged out successfully', 'success');
+//    // Redirect to home if on a protected page
+//    if (window.location.pathname.includes('bookings')) {
+//        window.location.href = '../index.html';
+//    }
+//}
+
 function logout() {
     localStorage.removeItem('bms_user');
+    localStorage.removeItem('bms_token'); // Clear the auth token
     updateNavUser();
     showToast('Logged out successfully', 'success');
     // Redirect to home if on a protected page
     if (window.location.pathname.includes('bookings')) {
-        window.location.href = '../index.html';
+        setTimeout(() => window.location.href = '../index.html', 1000);
     }
 }
 

@@ -1,57 +1,117 @@
+//// ===== API BASE URL =====
+//// Change this:
+// const API = 'http://localhost:8080/api';
+//
+//// To this:
+////const API = window.location.origin + '/api';
+//
+//// ===== GENERIC FETCH HELPERS =====
+//async function apiGet(endpoint) {
+//    const res = await fetch(`${API}${endpoint}`);
+//    if (!res.ok) {
+//        const err = await res.json().catch(() => ({ message: res.statusText }));
+//        throw new Error(err.message || 'Request failed');
+//    }
+//    return res.json();
+//}
+//
+//async function apiPost(endpoint, data) {
+//    const res = await fetch(`${API}${endpoint}`, {
+//        method: 'POST',
+//        headers: { 'Content-Type': 'application/json' },
+//        body: JSON.stringify(data)
+//    });
+//    if (!res.ok) {
+//        const err = await res.json().catch(() => ({ message: res.statusText }));
+//        throw new Error(err.message || 'Request failed');
+//    }
+//    return res.json();
+//}
+//
+//async function apiPut(endpoint, data) {
+//    const res = await fetch(`${API}${endpoint}`, {
+//        method: 'PUT',
+//        headers: { 'Content-Type': 'application/json' },
+//        body: data ? JSON.stringify(data) : undefined
+//    });
+//    if (!res.ok) {
+//        const err = await res.json().catch(() => ({ message: res.statusText }));
+//        throw new Error(err.message || 'Request failed');
+//    }
+//    return res.json();
+//}
+//
+//async function apiDelete(endpoint) {
+//    const res = await fetch(`${API}${endpoint}`, { method: 'DELETE' });
+//    if (!res.ok) {
+//        const err = await res.json().catch(() => ({ message: res.statusText }));
+//        throw new Error(err.message || 'Request failed');
+//    }
+//    // might return text
+//    const text = await res.text();
+//    try { return JSON.parse(text); } catch { return text; }
+//}
+
 // ===== API BASE URL =====
-// Change this:
- const API = 'http://localhost:8080/api';
+const API = 'http://localhost:8080/api';
 
-// To this:
-//const API = window.location.origin + '/api';
+// Helper to generate headers with Auth Token
+function getHeaders() {
+    const headers = { 'Content-Type': 'application/json' };
+    const token = localStorage.getItem('bms_token');
+    if (token) {
+        headers['Authorization'] = `Basic ${token}`;
+    }
+    return headers;
+}
 
-// ===== GENERIC FETCH HELPERS =====
-async function apiGet(endpoint) {
-    const res = await fetch(`${API}${endpoint}`);
+// Helper to handle 401 Unauthorized globally
+async function handleResponse(res) {
+    if (res.status === 401) {
+        logout(); // Auto-logout if token is invalid
+        throw new Error('Unauthorized: Please log in again.');
+    }
     if (!res.ok) {
         const err = await res.json().catch(() => ({ message: res.statusText }));
         throw new Error(err.message || 'Request failed');
     }
-    return res.json();
+
+    // Check if the response is empty before parsing JSON (for DELETE requests)
+    const text = await res.text();
+    return text ? JSON.parse(text) : {};
+}
+
+// ===== GENERIC FETCH HELPERS =====
+async function apiGet(endpoint) {
+    const res = await fetch(`${API}${endpoint}`, { headers: getHeaders() });
+    return handleResponse(res);
 }
 
 async function apiPost(endpoint, data) {
     const res = await fetch(`${API}${endpoint}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getHeaders(),
         body: JSON.stringify(data)
     });
-    if (!res.ok) {
-        const err = await res.json().catch(() => ({ message: res.statusText }));
-        throw new Error(err.message || 'Request failed');
-    }
-    return res.json();
+    return handleResponse(res);
 }
 
 async function apiPut(endpoint, data) {
     const res = await fetch(`${API}${endpoint}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getHeaders(),
         body: data ? JSON.stringify(data) : undefined
     });
-    if (!res.ok) {
-        const err = await res.json().catch(() => ({ message: res.statusText }));
-        throw new Error(err.message || 'Request failed');
-    }
-    return res.json();
+    return handleResponse(res);
 }
 
 async function apiDelete(endpoint) {
-    const res = await fetch(`${API}${endpoint}`, { method: 'DELETE' });
-    if (!res.ok) {
-        const err = await res.json().catch(() => ({ message: res.statusText }));
-        throw new Error(err.message || 'Request failed');
-    }
-    // might return text
-    const text = await res.text();
-    try { return JSON.parse(text); } catch { return text; }
+    const res = await fetch(`${API}${endpoint}`, {
+        method: 'DELETE',
+        headers: getHeaders()
+    });
+    return handleResponse(res);
 }
-
 // ===== USER APIs =====
 const UserAPI = {
     register: (data) => apiPost('/users/register', data),
