@@ -19,15 +19,20 @@ public class SecurityConfig {
                 // Disable CSRF since this is a REST API (typically used with JWT or stateless auth)
                 .csrf(csrf -> csrf.disable())
 
-                // Set up endpoint authorization
                 .authorizeHttpRequests(auth -> auth
-                        // Allow all requests to /public/** and your auth endpoints
-                        .requestMatchers("/public/**", "/api/users/register", "/api/users/login").permitAll()
+                        // 1. Public Auth endpoints
+                        .requestMatchers("/api/users/register", "/api/users/login").permitAll()
 
-                        // Require authentication for /user/** and booking endpoints
-                        .requestMatchers("/user/**", "/api/bookings/**").authenticated()
+                        // 2. Allow everyone to GET (view) movies, theaters, shows, cities, etc.
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/movies/**", "/api/theaters/**", "/api/shows/**", "/api/cities/**", "/api/screens/**", "/api/seats/**").permitAll()
 
-                        // Fallback for everything else
+                        // 3. ADMIN ONLY: Restrict all POST, PUT, DELETE requests on these endpoints
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/movies", "/api/theaters", "/api/shows", "/api/cities", "/api/screens", "/api/seats/**").hasAuthority("ROLE_ADMIN").requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/movies/**").hasAuthority("ROLE_ADMIN").requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/movies/**", "/api/seats/**").hasAuthority("ROLE_ADMIN")
+
+                        // 4. Require authentication for user bookings
+                        .requestMatchers("/api/bookings/**").authenticated()
+
+                        // 5. Fallback
                         .anyRequest().authenticated())
                 // Use basic authentication for simplicity (you can later upgrade to JWT)
                 .httpBasic(Customizer.withDefaults());

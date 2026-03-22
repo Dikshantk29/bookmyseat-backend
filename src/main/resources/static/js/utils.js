@@ -47,18 +47,26 @@ function logout() {
 
 function updateNavUser() {
     const navUser = document.getElementById('nav-user');
+    const adminLink = document.querySelector('a[href*="admin.html"]'); // Find the Admin link
+
     if (!navUser) return;
     const user = getLoggedInUser();
+
     if (user) {
         navUser.innerHTML = `
             <span style="color: var(--text-muted); font-size: 0.9rem;">Hi, <strong style="color: var(--white)">${user.name}</strong></span>
             <button class="btn btn-sm btn-outline" onclick="logout()">Logout</button>
         `;
+        // Show admin link ONLY if they are an admin
+        if (adminLink) {
+            adminLink.style.display = user.role === 'ROLE_ADMIN' ? 'inline-block' : 'none';
+        }
     } else {
         navUser.innerHTML = `
             <a href="${getPagePath('pages/login.html')}" class="btn btn-sm btn-outline">Login</a>
             <a href="${getPagePath('pages/register.html')}" class="btn btn-sm btn-primary">Sign Up</a>
         `;
+        if (adminLink) adminLink.style.display = 'none'; // Hide if logged out
     }
 }
 

@@ -33,10 +33,16 @@ public class User {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // Automatically set time when record is created
+    // Inside User.java
+    @Column(name = "role", nullable = false)
+    private String role; // e.g., "ROLE_USER" or "ROLE_ADMIN"
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-    }
+        if (this.role == null) {
+            this.role = "ROLE_USER"; // Default to standard user
+        }
 
+    }
 }
