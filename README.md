@@ -4,8 +4,7 @@ BookMySeat is a comprehensive, full-stack movie ticket booking application. It a
 
 ### 🎥 Application Demo
 
-[![BookMySeat Demo](https://bookmyseat-backend-zz2o.onrender.com)
-> 👆 Click the image to watch the full demo
+[![BookMySeat Demo](https://bookmyseat-backend-zz2o.onrender.com/thumbnail.png)](https://bookmyseat-backend-zz2o.onrender.com)
 
 ### ✨ Features
 
