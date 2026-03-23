@@ -1,9 +1,9 @@
 // ===== API BASE URL =====
 // Change this:
- const API = 'http://localhost:8080/api';
+// const API = 'http://localhost:8080/api';
 
 // To this:
-//const API = window.location.origin + '/api';
+const API = window.location.origin + '/api';
 
 // ===== GENERIC FETCH HELPERS =====
 async function apiGet(endpoint) {
