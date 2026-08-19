@@ -23,11 +23,11 @@ public class Show {
     @Column(name = "show_date", nullable = false)
     private LocalDate showDate;
 
-    @ManyToOne
+    @ManyToOne// Many shows can belong to one movie
     @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie; //bhot sare show  ek movie ke ho sakte hai.
 
-    @ManyToOne
+    @ManyToOne//Many shows can be scheduled on one screen
     @JoinColumn(name = "screen_id", nullable = false)
     private Screen screen;//Many shows can belong to one screen
 
@@ -40,3 +40,26 @@ public class Show {
 
 
 }
+/*
+*                 MANY TO ONE                    MANY TO ONE
++----------------+       --------->     +----------------+
+|      Show      |                      |     Movie       |
++----------------+                      +----------------+
+| id (PK)        |                      | id (PK)        |
+| show_date      |                      | name           |
+| start_time     |                      +----------------+
+| end_time       |
+| ticket_price   |
+| movie_id (FK)  |
+| screen_id (FK) |
++----------------+
+        |
+        | MANY TO ONE
+        v
++----------------+
+|    Screen      |
++----------------+
+| id (PK)        |
+| name           |
+| theater_id FK  |
++----------------+*/

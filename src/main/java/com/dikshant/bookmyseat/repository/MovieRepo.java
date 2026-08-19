@@ -14,7 +14,7 @@ public interface MovieRepo extends JpaRepository<Movie, Long> {
 
     List<Movie> findByLanguage(String language);
 
-    //   List<Movie> findByTitleContaingIgnoreCase(String title);
+    //List<Movie> findByTitleContaingIgnoreCase(String title);
     List<Movie> findByTitleContainingIgnoreCase(String title);
 
 

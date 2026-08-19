@@ -96,8 +96,15 @@ const ScreenAPI = {
 };
 
 // ===== SEAT APIs =====
+//const SeatAPI = {
+//    add: (data) => apiPost('/seats', data),
+//    getByScreen: (screenId) => apiGet(`/seats/screen/${screenId}`),
+//    getById: (id) => apiGet(`/seats/${id}`)
+//};
+// ===== SEAT APIs =====
 const SeatAPI = {
-    add: (data) => apiPost('/seats', data),
+    // POST to /api/seats/screen/{screenId}
+    add: (data) => apiPost(`/seats/screen/${data.screenId}`, data),
     getByScreen: (screenId) => apiGet(`/seats/screen/${screenId}`),
     getById: (id) => apiGet(`/seats/${id}`)
 };

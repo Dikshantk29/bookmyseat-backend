@@ -22,7 +22,18 @@ public class Screen {
     @Column(name = "total_seats", nullable = false)
     private Integer totalSeats;
 
-    @ManyToOne
+    @ManyToOne// Many screens belong to one theater
     @JoinColumn(name = "theater_id", nullable = false)
     private Theater theater;
 }
+/*                MANY TO ONE
++----------------+        --------->       +----------------+
+|     Screen     |                         |    Theater     |
++----------------+                         +----------------+
+| id (PK)        |                         | id (PK)        |
+| name           |                         | name           |
+| total_seats    |                         | address        |
+| theater_id FK  |                         | city_id FK     |
++----------------+                         +----------------+
+
+     MANY SCREENS               ONE THEATER*/

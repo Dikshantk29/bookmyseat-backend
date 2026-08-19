@@ -22,7 +22,8 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody UserRequest userRequest) {
         return ResponseEntity.ok(userService.register(userRequest));
-
+        /*ResponseEntity is used to control the
+         full HTTP response (status + body + headers).*/
     }
 
     @PostMapping("/login")

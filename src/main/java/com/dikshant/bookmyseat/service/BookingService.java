@@ -21,7 +21,7 @@ public class BookingService {
     private final ShowService showService;
     private final UserService userService;
 
-    @Transactional
+    @Transactional//“Ensures all operations succeed or fail together.”
     public Booking createBooking(BookingRequest bookingRequest) {
 
         User user = userService.getUserById(bookingRequest.getUserId());
@@ -41,6 +41,12 @@ public class BookingService {
         if(seats.size() != bookingRequest.getSeatIds().size()) {
             throw new RuntimeException("Some seats are not Invalid");
         }
+        /*
+        “This check ensures that all requested seat IDs are valid.
+        If the number of seats fetched from the database doesn’t match
+        the requested IDs, it means some IDs are invalid.”
+
+        */
 
         Double totalPrice = seats.size()*show.getTicketPrice();
         Booking booking = Booking.builder()

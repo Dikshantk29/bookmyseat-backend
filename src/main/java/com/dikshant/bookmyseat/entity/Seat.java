@@ -28,9 +28,10 @@ public class Seat {
     @Column(name = "seat_col", nullable = false)
     private Integer col;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)// Stores enum as string (e.g., REGULAR, PREMIUM)
     private SeatType seatType;
 
+    // Many seats belong to one screen
     @ManyToOne //persepective entity
     @JoinColumn(name = "screen_id", nullable = false)
     private Screen screen;

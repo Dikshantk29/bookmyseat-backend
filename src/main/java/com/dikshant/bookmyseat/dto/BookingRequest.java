@@ -18,4 +18,6 @@ public class BookingRequest {
     private Long showId;
     @JsonProperty("seatIds")
     private List<Long> seatIds;
+    /*“It ensures the JSON field name
+    seatIds maps correctly to the Java field.”*/
 }

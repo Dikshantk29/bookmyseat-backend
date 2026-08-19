@@ -19,20 +19,15 @@ public class ShowService {
     private final ShowRepo showRepository;
     private final MovieService movieService;
     private final ScreenService screenService;
+    /*Movie = WHAT
+Show = WHEN + WHERE*/
 
     //Add show
     public Show addShow(ShowRequest showRequest) {
         Movie movie = movieService.getMovieById(showRequest.getMovieId());
         Screen screen = screenService.getScreenById(showRequest.getScreenId());
 
-        Show show = Show.builder()
-                .movie(movie)
-                .screen(screen)
-                .showDate(showRequest.getShowDate())
-                .startTime(showRequest.getStartTime())
-                .endTime(showRequest.getEndTime())
-                .ticketPrice(showRequest.getTicketPrice())
-                .build();
+        Show show = Show.builder().movie(movie).screen(screen).showDate(showRequest.getShowDate()).startTime(showRequest.getStartTime()).endTime(showRequest.getEndTime()).ticketPrice(showRequest.getTicketPrice()).build();
 
         return showRepository.save(show);
 
@@ -44,9 +39,7 @@ public class ShowService {
     }
 
     public Show getShowById(Long id) {
-        return showRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Show not found with id: " + id));
+        return showRepository.findById(id).orElseThrow(() -> new RuntimeException("Show not found with id: " + id));
     }
 
     public List<Show> getShowsByMovieId(Long movieId) {
@@ -64,9 +57,6 @@ public class ShowService {
     public List<Show> getShowByScreenAndDate(Long id, LocalDate date) {
         return showRepository.findByScreenIdAndShowDate(id, date);
     }
-
-
-
 
 
 }

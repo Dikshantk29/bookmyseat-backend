@@ -33,7 +33,7 @@ public class User {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // Automatically set time when record is created
+// Lifecycle callback: runs before entity is persisted
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
