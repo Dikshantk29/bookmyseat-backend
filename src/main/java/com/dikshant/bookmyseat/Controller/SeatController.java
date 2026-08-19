@@ -17,10 +17,15 @@ public class SeatController {
     private final SeatService seatService;
 
     // Add seat to a screen
-    @PostMapping("/screen/{screenId}")
-    public ResponseEntity<Seat> addSeat(@PathVariable Long screenId,
-                                        @RequestBody SeatRequest seatRequest) {
-        return ResponseEntity.ok(seatService.addSeat(screenId, seatRequest));
+//    @PostMapping("/screen/{screenId}")
+//    public ResponseEntity<Seat> addSeat(@PathVariable Long screenId,
+//                                        @RequestBody SeatRequest seatRequest) {
+//        return ResponseEntity.ok(seatService.addSeat(screenId, seatRequest));
+//    }
+
+    @PostMapping
+    public ResponseEntity<Seat> addSeat(@RequestBody SeatRequest seatRequest) {
+        return ResponseEntity.ok(seatService.addSeat(seatRequest.getScreenId(), seatRequest));
     }
 
     // Get all seats
