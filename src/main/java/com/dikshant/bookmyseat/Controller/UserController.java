@@ -1,5 +1,6 @@
 package com.dikshant.bookmyseat.Controller;
 
+import com.dikshant.bookmyseat.dto.AuthResponse;
 import com.dikshant.bookmyseat.dto.LoginRequest;
 import com.dikshant.bookmyseat.dto.UserRequest;
 import com.dikshant.bookmyseat.entity.User;
@@ -27,7 +28,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody LoginRequest userRequest) {
+    public ResponseEntity<AuthResponse> login(
+            @RequestBody LoginRequest userRequest
+    ) {
         return ResponseEntity.ok(userService.login(userRequest));
     }
 

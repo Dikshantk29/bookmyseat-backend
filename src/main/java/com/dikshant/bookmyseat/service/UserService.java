@@ -1,9 +1,11 @@
 package com.dikshant.bookmyseat.service;
 
+import com.dikshant.bookmyseat.dto.AuthResponse;
 import com.dikshant.bookmyseat.dto.LoginRequest;
 import com.dikshant.bookmyseat.dto.UserRequest;
 import com.dikshant.bookmyseat.entity.User;
 import com.dikshant.bookmyseat.repository.UserRepo;
+import com.dikshant.bookmyseat.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ public class UserService {
 
     private final UserRepo userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     // Register User
     public User register(UserRequest userRequest) {
@@ -40,23 +43,33 @@ public class UserService {
     }
 
     // Login
-    public User login(LoginRequest userRequest) {
+    public AuthResponse login(LoginRequest userRequest) {
 
         User user = userRepository.findByEmail(userRequest.getEmail())
                 .orElseThrow(() ->
                         new RuntimeException(
-                                "User not found with email: "
-                                        + userRequest.getEmail()
+                                "Invalid email or password"
                         ));
 
         if (!passwordEncoder.matches(
                 userRequest.getPassword(),
                 user.getPassword()
         )) {
-            throw new RuntimeException("Invalid password");
+            throw new RuntimeException(
+                    "Invalid email or password"
+            );
         }
 
-        return user;
+        String token = jwtService.generateToken(user);
+
+        return new AuthResponse(
+                token,
+                "Bearer",
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getRole()
+        );
     }
 
     // Get all users
