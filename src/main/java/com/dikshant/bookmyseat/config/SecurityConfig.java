@@ -31,6 +31,22 @@ public class SecurityConfig {
                                 "/api/users/register",
                                 "/api/users/login"
                         ).permitAll()
+
+                        // User management is restricted to admins.
+                        .requestMatchers("/api/users/**").hasRole("ADMIN")
+
+                        // Admin-only catalog/configuration write operations.
+                        .requestMatchers("POST", "/api/cities/**").hasRole("ADMIN")
+                        .requestMatchers("POST", "/api/movies/**").hasRole("ADMIN")
+                        .requestMatchers("PUT", "/api/movies/**").hasRole("ADMIN")
+                        .requestMatchers("DELETE", "/api/movies/**").hasRole("ADMIN")
+                        .requestMatchers("POST", "/api/theaters/**").hasRole("ADMIN")
+                        .requestMatchers("POST", "/api/screens/**").hasRole("ADMIN")
+                        .requestMatchers("POST", "/api/seats/**").hasRole("ADMIN")
+                        .requestMatchers("DELETE", "/api/seats/**").hasRole("ADMIN")
+                        .requestMatchers("POST", "/api/shows/**").hasRole("ADMIN")
+
+                        // All other endpoints require a valid JWT.
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(
