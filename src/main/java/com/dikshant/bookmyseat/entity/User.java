@@ -1,5 +1,6 @@
 package com.dikshant.bookmyseat.entity;
 
+import com.dikshant.bookmyseat.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,13 +31,16 @@ public class User {
     @Column(name = "phone", nullable = false)
     private String phone;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    @Builder.Default
+    private Role role = Role.USER;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-// Lifecycle callback: runs before entity is persisted
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
-
 }
